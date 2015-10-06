@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Illumyno</name>
+    </assembly>
+    <members>
+        <member name="T:Illumyno.RadObject">
+            <summary>
+            Radiance Objects.
+            </summary>
+        </member>
+        <member name="M:Illumyno.RadObject.Polygon(System.String,System.String,System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point})">
+            <summary>
+            Creates a Radiance Polygon.
+            </summary>
+            <param name="material">Material of the Polygon</param>
+            <param name="name">Name of the Polygon</param>
+            <param name="points">List of Points that define the Polygon (need to be planar).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Illumyno.RadObject.Material(System.String,System.String,System.String,System.Double,System.Double,System.Double,System.Nullable{System.Double},System.Nullable{System.Double})">
+            <summary>
+            Creates a Radiance Material.
+            </summary>
+            <param name="modifier">"void" or another material name</param>
+            <param name="type">Material Type [plastic, metal, glass, trans, light, source, brightfunc, illum, glow, spotlight, ...]</param>
+            <param name="name">The name of the material</param>
+            <param name="red">red value [W/m²/sr]</param>
+            <param name="green">green value [W/m²/sr]</param>
+            <param name="blue">blue value [W/m²/sr]</param>
+            <param name="specularity">for plastic and metal, otherwise null [0..1]</param>
+            <param name="roughness">for plastic and metal, otherwise null [0..1]</param>
+            <returns></returns>
+        </member>
+        <member name="M:Illumyno.RadObject.Sphere(System.String,System.String,Autodesk.DesignScript.Geometry.Point,System.Double)">
+            <summary>
+            Creates a Radiance Sphere.
+            </summary>
+            <param name="material">Material of the sphere</param>
+            <param name="name">Name of the sphere</param>
+            <param name="centerPoint">Centerpoint of the sphere</param>
+            <param name="radius">Radius of the Sphere</param>
+            <returns></returns>
+        </member>
+        <member name="T:Illumyno.Objects.IlluminoObject">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Illumyno.Objects.IlluminoObject.Write">
+            <summary>
+            Returns the full Radiance String.
+            </summary>
+            <returns>String for Radiance</returns>
+        </member>
+        <member name="M:Illumyno.Objects.IlluminoObject.ToString">
+            <summary>
+            Returns the name of the object.
+            </summary>
+            <returns>Name</returns>
+        </member>
+        <member name="T:Illumyno.Objects.Material">
+            <summary>
+            The Radiance Material.
+            </summary>
+        </member>
+        <member name="M:Illumyno.Objects.Material.#ctor(System.String,System.String,System.String,System.Double,System.Double,System.Double,System.Nullable{System.Double},System.Nullable{System.Double})">
+            <summary>
+            Radiance Material Constructor
+            </summary>
+            <param name="modifier">void or another material name</param>
+            <param name="type">Material Type [plastic, metal, glass, trans, light, source, brightfunc, illum, glow, spotlight, ...]</param>
+            <param name="name">The name of the material</param>
+            <param name="red">red value [W/m²/sr]</param>
+            <param name="green">green value [W/m²/sr]</param>
+            <param name="blue">blue value [W/m²/sr]</param>
+            <param name="specularity">for plastic and metal, otherwise null [0..1]</param>
+            <param name="roughness">for plastic and metal, otherwise null [0..1]</param>
+        </member>
+        <member name="M:Illumyno.Objects.Material.Write">
+            <summary>
+            Returns the full Radiance String.
+            </summary>
+            <returns>Radiance Material</returns>
+        </member>
+        <member name="T:Illumyno.Objects.Polygon">
+            <summary>
+            A radiance polygon object
+            </summary>
+        </member>
+        <member name="M:Illumyno.Objects.Polygon.#ctor(System.String,System.String,System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point})">
+            <summary>
+            Radiance Polygon Constructor
+            </summary>
+            <param name="material">material of the polygon</param>
+            <param name="name">name of the polygon</param>
+            <param name="points">List of points that define the polygon (need to be planar)</param>
+        </member>
+        <member name="M:Illumyno.Objects.Polygon.Write">
+            <summary>
+            Returns the full Radiance String.
+            </summary>
+            <returns>Radiance Polygon</returns>
+        </member>
+        <member name="T:Illumyno.Objects.Sphere">
+            <summary>
+            A Radiance Sphere
+            </summary>
+        </member>
+        <member name="M:Illumyno.Objects.Sphere.#ctor(System.String,System.String,Autodesk.DesignScript.Geometry.Point,System.Double)">
+            <summary>
+            Creates a Radiance Sphere
+            </summary>
+            <param name="material">Material of the sphere</param>
+            <param name="name">Name of the sphere</param>
+            <param name="centerPoint">Centerpoint of the sphere</param>
+            <param name="radius">Radius of the Sphere</param>
+        </member>
+        <member name="M:Illumyno.Objects.Sphere.Write">
+            <summary>
+            Returns the full Radiance String.
+            </summary>
+            <returns>Radiance Sphere</returns>
+        </member>
+        <member name="T:Illumyno.Generators">
+            <summary>
+            The Radiance Generators.
+            </summary>
+        </member>
+        <member name="M:Illumyno.Generators.GenerateBox(System.String,System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Runs radiance genbox.
+            </summary>
+            <param name="material">material of the box</param>
+            <param name="name">name of the box</param>
+            <param name="length">length of the box</param>
+            <param name="width">width of the box</param>
+            <param name="height">height of the box</param>
+            <returns>6 radiance polygons as a string</returns>
+        </member>
+        <member name="M:Illumyno.Generators.SkyByDefault">
+            <summary>
+            Calls Radiance's gensky with option "-defaults".
+            </summary>
+            <returns>gensky defaults</returns>
+        </member>
+        <member name="M:Illumyno.Generators.SkyAtDateTime(System.DateTime,System.String)">
+            <summary>
+            Calls Radiance's gensky at specified time with options.
+            </summary>
+            <param name="dateTime">A DateTime</param>
+            <param name="options">gensky options</param>
+            <returns>A specified Radiance Sky</returns>
+        </member>
+        <member name="M:Illumyno.Generators.SkyFromSunPosition(System.Double,System.Double,System.String)">
+            <summary>
+            Calls Radiance's gensky with sun at specified altitude and azimuth time with options.
+            </summary>
+            <param name="altitude">altitude of the sun</param>
+            <param name="azimuth">azimuth of the sun</param>
+            <param name="options">gensky options</param>
+            <returns>A specified Radiance Sky</returns>
+        </member>
+        <member name="T:Illumyno.Helpers">
+            <summary>
+            Modifiers for preparing Dynamo RadObject for radiance.
+            </summary>
+        </member>
+        <member name="M:Illumyno.Helpers.ByGlazingPercentage(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Surface},System.Double)">
+            <summary>
+            Adds Surfaces on a given set of surfaces that represent windows in a size specified through the glazing percentage factor
+            </summary>
+            <param name="surfaces">Set of surfaces to place the windows on</param>
+            <param name="percentage">Glazing percentage [0.05 - 0.95]</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Illumyno.Helpers.CutWindows(Autodesk.DesignScript.Geometry.Surface,System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Surface})">
+            <summary>
+            Given a surface and the windows placed on it, the windows are cut out of the surface to generate a wall with holes.
+            </summary>
+            <param name="surface">Surface that contains the windows</param>
+            <param name="windows">List of surfaces that represent the windows</param>
+        </member>
+        <member name="M:Illumyno.Helpers.TesselateSurface(Autodesk.DesignScript.Geometry.Geometry,System.Double)">
+            <summary>
+            Tesselates a Dynamo geometry and returns the vertices as Point lists. Needed to generate Radiance geometry from freeform or not closed geometry.
+            </summary>
+            <param name="geometry">the dynamo geometry</param>
+            <param name="tolerance">tesselation tolerance</param>
+            <returns></returns>
+        </member>
+        <member name="M:Illumyno.Helpers.EvaluationPointsList(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point},Autodesk.DesignScript.Geometry.Vector)">
+            <summary>
+            Creates an evaluation pointlist.
+            </summary>
+            <param name="points">Points to evaluate</param>
+            <param name="direction">direction to evaluate (normaly z-direction)</param>
+            <returns>pointList</returns>
+        </member>
+        <member name="M:Illumyno.Helpers.ObjectsToString(System.Collections.Generic.List{Illumyno.Objects.IlluminoObject})">
+            <summary>
+            Convert Illumino Objects to string.
+            </summary>
+            <param name="illumynoObjects">List of Objects from Illumino to write to a string.</param>
+            <returns>string that can be used by radiance or be written to a *.rad file</returns>
+        </member>
+        <member name="T:Illumyno.Program">
+            <summary>
+            Process Handling.
+            </summary>
+        </member>
+        <member name="M:Illumyno.Program.Execute(System.String,System.String)">
+            <summary>
+            Runs a process with a command.
+            </summary>
+            <param name="program">Programm to execute</param>
+            <param name="command">additional commands and options</param>
+            <returns></returns>
+        </member>
+        <member name="M:Illumyno.Program.Execute(System.String,System.String,System.String)">
+            <summary>
+            Runs a process with command and stdInput
+            </summary>
+            <param name="program">Programm to execute</param>
+            <param name="command">additional commands and options</param>
+            <param name="input">string written to stadard input</param>
+            <returns></returns>
+        </member>
+        <member name="T:Illumyno.Simulation">
+            <summary>
+            Runs the Radiance Functions.
+            </summary>
+        </member>
+        <member name="M:Illumyno.Simulation.CalculateLux(System.String,System.String)">
+            <summary>
+            Calculates the LUX of a scene at specified evaluation points (using rtrace and rcalc).
+            </summary>
+            <param name="evalPoints">the evaluation points as string</param>
+            <param name="sceneFile">Path to scene file</param>
+            <returns>LUX values at given points</returns>
+        </member>
+        <member name="M:Illumyno.Simulation.CreateScene(System.String,System.String,System.String)">
+            <summary>
+            Takes the Sky, Materials and Objects as string to create a Radiance Scene using oconv.
+            </summary>
+            <param name="sky">Sky parameters as string</param>
+            <param name="materials">All materials as string</param>
+            <param name="objects">All objects as string</param>
+            <returns></returns>
+        </member>
+        <member name="M:Illumyno.Simulation.CreateSceneFromFiles(System.String,System.String,System.String)">
+            <summary>
+            Creates a Radiance Scene from files using oconv
+            </summary>
+            <param name="skyFile">Path to file containing a sky</param>
+            <param name="materialFile">Path to file containing all materials</param>
+            <param name="objectFile">Path to file containing all objects</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

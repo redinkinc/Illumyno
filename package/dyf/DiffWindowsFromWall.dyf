@@ -1,0 +1,32 @@
+<Workspace Version="0.8.2.2392" X="127" Y="128" zoom="1" Name="DiffWindowsFromWall" Description="Returns the wall with removed window surfaces" ID="8b6f6147-1da5-4499-a39b-1aec6a5daea9" Category="Illumyno.Illumyno.Helpers">
+  <NamespaceResolutionMap>
+    <ClassMap partialName="Math" resolvedName="DSCore.Math" assemblyName="DSCoreNodes.dll" />
+  </NamespaceResolutionMap>
+  <Elements>
+    <Dynamo.Nodes.DSFunction guid="7cf00415-2224-4f44-8477-46768d74e6f9" type="Dynamo.Nodes.DSFunction" nickname="Surface.SubtractFrom" x="552.807096039736" y="0" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Surface.SubtractFrom@Autodesk.DesignScript.Geometry.Solid" />
+    <Dynamo.Nodes.DSFunction guid="55cacb19-ee13-4d6f-9576-e1f91082f4b9" type="Dynamo.Nodes.DSFunction" nickname="Surface.Thicken" x="329.314319242905" y="71.0183358887069" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Surface.Thicken@double,bool">
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="b1cb27c7-263d-4f3f-a215-740812fad792" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="98" y="172.291129680972" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="1000;" ShouldFocus="false" />
+    <Dynamo.Nodes.Symbol guid="256ed628-9773-478f-ac01-5a44f4d1074b" type="Dynamo.Nodes.Symbol" nickname="Input" x="0" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="surface : Surface" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Symbol guid="82939cee-73c4-40b3-8e12-c76f3cd2e9bf" type="Dynamo.Nodes.Symbol" nickname="Input" x="1" y="84" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="surface : Surface" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Output guid="b7b69dac-cede-4c72-bc1d-4515a2ce655e" type="Dynamo.Nodes.Output" nickname="Output" x="850.807096039736" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="Geometry[]" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="7cf00415-2224-4f44-8477-46768d74e6f9" start_index="0" end="b7b69dac-cede-4c72-bc1d-4515a2ce655e" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="55cacb19-ee13-4d6f-9576-e1f91082f4b9" start_index="0" end="7cf00415-2224-4f44-8477-46768d74e6f9" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b1cb27c7-263d-4f3f-a215-740812fad792" start_index="0" end="55cacb19-ee13-4d6f-9576-e1f91082f4b9" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="256ed628-9773-478f-ac01-5a44f4d1074b" start_index="0" end="7cf00415-2224-4f44-8477-46768d74e6f9" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="82939cee-73c4-40b3-8e12-c76f3cd2e9bf" start_index="0" end="55cacb19-ee13-4d6f-9576-e1f91082f4b9" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+</Workspace>
