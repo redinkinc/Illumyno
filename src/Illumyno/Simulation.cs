@@ -52,17 +52,27 @@ namespace Illumyno
         /// <summary>
         /// Takes the Sky, Materials and Objects as string to create a Radiance Scene using oconv.
         /// </summary>
+        /// <param name="objects">All objects as string</param>
+        /// <returns></returns>
+        [IsVisibleInDynamoLibrary(true)]
+        public static string CreateScene(string objects)
+        {
+            return CreateScene(null, null, objects);
+        }
+
+        /// <summary>
+        /// Takes the Sky, Materials and Objects as string to create a Radiance Scene using oconv.
+        /// </summary>
         /// <param name="sky">Sky parameters as string</param>
         /// <param name="materials">All materials as string</param>
         /// <param name="objects">All objects as string</param>
         /// <returns></returns>
-        [IsVisibleInDynamoLibrary(false)]
+        [IsVisibleInDynamoLibrary(true)]
         public static string CreateScene(string sky, string materials, string objects)
         {
             const string program = "oconv";
             const string command = "-f -";
             var input = sky + "\r\n" + materials + "\r\n" + objects + "\r\n";
-            //input += "^Z";
             
             var scene = Program.Execute(program, command, input);
             

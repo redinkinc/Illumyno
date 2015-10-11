@@ -23,8 +23,6 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Text;
 using Autodesk.DesignScript.Runtime;
 
 namespace Illumyno
@@ -87,13 +85,15 @@ namespace Illumyno
             };
             proc.Start();
 
-            StreamWriter utf8Writer = new StreamWriter(proc.StandardInput.BaseStream, Encoding.ASCII);
-            utf8Writer.Write(input);
-            utf8Writer.Close();
+            //StreamWriter utf8Writer = new StreamWriter(proc.StandardInput.BaseStream, Encoding.ASCII);
+            //utf8Writer.Write(input);
+            //utf8Writer.Write((char) 26); // EOF
+            //utf8Writer.Close();
 
-            //proc.StandardInput.Write(input);
-            //proc.StandardInput.Flush();
-            //proc.StandardInput.Close();
+            proc.StandardInput.WriteLine(input);
+            proc.StandardInput.WriteLine((char)26); // EOF
+            proc.StandardInput.Flush();
+            proc.StandardInput.Close();
 
             var e = proc.StandardError.ReadToEnd();
             if (e != "")
@@ -101,11 +101,11 @@ namespace Illumyno
                 throw new ArgumentException(e);
             }
 
-            var result = proc.StandardOutput.ReadToEnd();
-
             proc.WaitForExit();
+            var result = proc.StandardOutput.ReadToEnd();
             
             proc.Close();
+
             return result;
         }
     }
