@@ -22,7 +22,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Autodesk.DesignScript.Runtime;
 
 namespace Illumyno
@@ -70,6 +72,7 @@ namespace Illumyno
         /// <param name="command">additional commands and options</param>
         /// <param name="input">string written to stadard input</param>
         /// <returns></returns>
+        [IsVisibleInDynamoLibrary(false)]
         public static string Execute(string program, string command, string input)
         {
             var proc = new Process()
@@ -101,12 +104,13 @@ namespace Illumyno
                 throw new ArgumentException(e);
             }
 
-            proc.WaitForExit();
             var result = proc.StandardOutput.ReadToEnd();
-            
+
+            proc.WaitForExit();
             proc.Close();
 
             return result;
         }
+
     }
 }

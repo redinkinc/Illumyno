@@ -21,6 +21,8 @@
  *  along with Illumyno. If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
 using Autodesk.DesignScript.Runtime;
 
 namespace Illumyno
@@ -50,50 +52,77 @@ namespace Illumyno
         }
 
         /// <summary>
-        /// Takes the Sky, Materials and Objects as string to create a Radiance Scene using oconv.
+        /// Creates a Radiance Scene from input using oconv.
         /// </summary>
-        /// <param name="objects">All objects as string</param>
-        /// <returns></returns>
+        /// <param name="filepath">name of the output file to be generated</param>
+        /// <param name="input">All objects as string</param>
+        /// <returns>Path to the generated sceneFile.</returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static string CreateScene(string objects)
+        public static string CreateSceneFromString(string filepath, string input)
         {
-            return CreateScene(null, null, objects);
+            return CreateSceneFromStrings(filepath, null, null, input);
         }
 
         /// <summary>
         /// Takes the Sky, Materials and Objects as string to create a Radiance Scene using oconv.
         /// </summary>
+        /// <param name="filepath">name of the output file to be generated</param>
         /// <param name="sky">Sky parameters as string</param>
         /// <param name="materials">All materials as string</param>
         /// <param name="objects">All objects as string</param>
-        /// <returns></returns>
+        /// <returns>Path to the generated sceneFile.</returns>
         [IsVisibleInDynamoLibrary(true)]
-        public static string CreateScene(string sky, string materials, string objects)
+        public static string CreateSceneFromStrings(string filepath, string sky, string materials, string objects)
         {
+            var path = Path.GetDirectoryName(filepath) + @"\" + Path.GetFileNameWithoutExtension(filepath);
+
+            var command = "";
+            
+            if (sky != null)
+            {
+                var skypath = path + "_sky.rad";
+                File.WriteAllText(skypath, sky);
+                command += skypath + " ";
+            }
+            if (materials != null)
+            {
+                var matpath = path + "_materials.rad";
+                File.WriteAllText(matpath, materials);
+                command += matpath + " ";
+            }
+            if (objects != null)
+            {
+                var objpath = path + "_objects.rad";
+                File.WriteAllText(objpath, objects);
+                command += objpath + " ";
+            }
+
             const string program = "oconv";
-            const string command = "-f -";
-            var input = sky + "\r\n" + materials + "\r\n" + objects + "\r\n";
             
-            var scene = Program.Execute(program, command, input);
-            
-            return scene;
+            var scene = Program.Execute(program, command);
+            if (scene.Length == 0) throw new ArgumentException("empty file");
+            File.WriteAllText(filepath, scene);
+
+            return filepath;
         }
 
         /// <summary>
         /// Creates a Radiance Scene from files using oconv
         /// </summary>
+        /// <param name="filepath">name of the output file to be generated</param>
         /// <param name="skyFile">Path to file containing a sky</param>
         /// <param name="materialFile">Path to file containing all materials</param>
         /// <param name="objectFile">Path to file containing all objects</param>
-        /// <returns></returns>
-        public static string CreateSceneFromFiles(string skyFile, string materialFile, string objectFile)
+        /// <returns>Path to the generated sceneFile.</returns>
+        public static string CreateSceneFromFiles(string filepath, string skyFile = "", string materialFile = "", string objectFile = "")
         {
             const string program = "oconv";
             var command = skyFile + " " + materialFile + " " + objectFile;
-
+            
             var scene = Program.Execute(program, command);
+            File.WriteAllText(filepath, scene);
 
-            return scene;
+            return filepath;
         }
 
     }
